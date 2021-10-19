@@ -1,0 +1,78 @@
+# 应用服务 WEB 访问端口
+server:
+  port: 8080
+web:
+  resource-path: /home/projects/upload/
+# 应用名称
+spring:
+  application:
+    name: authorizecode
+  #配置访问图片地址以及邮箱文件
+  resources:
+    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,file:${web.resource-path}
+  #freemark
+  freemarker:
+    charset: UTF-8
+    suffix: .html
+    content-type: text/html; charset=utf-8
+    template-loader-path: classpath:/templates/
+    static-path-pattern: /static/**
+  data:
+    mongodb:
+      uri: mongodb://scanerdb:PasswordLuzeanquan@127.0.0.1:27017/scanerdb
+      #uri: mongodb://root:PasswordLuzeanquan@172.30.2.28:27017/admin
+      #uri: mongodb://root:PasswordLuzeanquan@127.0.0.1:27017/admin
+      field-naming-strategy: org.springframework.data.mapping.model.SnakeCaseFieldNamingStrategy
+  #redis的配置
+  redis:
+    #host: 172.30.2.28
+    host: 127.0.0.1
+    #password: PasswordLuzeanquan
+    #port: 6380
+    port: 6379
+    database: 3
+    timeout: 1000
+  jackson:
+    default-property-inclusion: non_null
+    serialization:
+      #时间统一返回时间戳
+      write-dates-as-timestamps: true
+  datasource:
+    username: root
+    password: PasswordLuzeanquan
+    url: jdbc:mysql://127.0.0.1:3306/zelu_scaner_system?useTimezone=true&serverTimezone=Asia/Shanghai&characterEncoding=UTF-8&autoReconnect=true
+    #url: jdbc:mysql://172.30.2.28:3309/zelu_scaner_system?useTimezone=true&serverTimezone=Asia/Shanghai&characterEncoding=UTF-8&autoReconnect=true
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+#mybatis是独立节点，需要单独配置
+mybatis-plus:
+  mapper-locations: classpath:mappers/*.xml
+  type-aliases-package: com.zelu.authorizecode.entity
+  configuration:
+    map-underscore-to-camel-case: true
+shiro:
+  password:
+    salt: zSyK5Kp6PZAAjlT+eeNMlg==
+    random: 20
+    salt1: zSyK5Kp6%18PZ4!AA**jlT+eeNMlg=9=)
+    random1: 15
+    salt2: zSyK5Kp6PZ*&%#AAjlT+eeNMlg==(
+    random2: 25
+    #账号错误次数
+    times: 10
+    #账号锁定时长(单位:分钟)
+    time: 10
+    #强制下线第一个用户
+    kickoutAfter: false
+    #-1 不限制登陆试试
+    maxSession: 1
+    #token 实效时间 (单位:分钟)
+    expireTime: 30
+    address: /user/needlogin/
+    #密钥的长度
+    lenth: 16
+intface:
+  address: http://192.168.50.132:5555/interface
+  #address: http://127.0.0.1:5555/interface
+  #address: http://192.168.50.254:5555/interface
+
